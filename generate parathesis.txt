@@ -1,0 +1,24 @@
+class Solution {
+    public static void backtrack(int openbrackets,int charleft,StringBuilder temp,List<String> res){
+        if(openbrackets==0 && charleft==0){
+            res.add(new String(temp.toString()));
+            return;
+        }
+        if(openbrackets>charleft || openbrackets<0){
+            return;
+        }
+        temp.append('(');
+        backtrack(openbrackets+1,charleft-1,temp,res);
+        temp.deleteCharAt(temp.length()-1);
+        temp.append(')');
+        backtrack(openbrackets-1,charleft-1,temp,res);
+        temp.deleteCharAt(temp.length()-1);
+    }
+    public List<String> generateParenthesis(int n) {
+       List<String> res=new ArrayList<>();
+        StringBuilder temp=new StringBuilder();
+        backtrack(0,n*2,temp,res);
+        return res;
+        
+    }
+}
